@@ -223,5 +223,15 @@ class Distributions:
         return A
     
 
+    def exponential(self):
+        A = np.exp(np.linspace(0, np.log(self.upper), self.n))
+
+        if self.inverse:
+            return A[::-1]
+        
+        np.random.shuffle(A)
+        return A
+    
+
     def Random(self):
         return np.random.randint(self.lower, self.upper, self.n)

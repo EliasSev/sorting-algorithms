@@ -10,7 +10,8 @@ def start(n, algorithm, distribution, inverse=False, width=800, height=500, fps=
                 "quadratic": distributions.quadratic,
                 "step": distributions.step,
                 "logarithmic": distributions.logarithmic,
-                "random": distributions.Random}
+                "random": distributions.Random,
+                "exponential": distributions.exponential}
 
     if distribution not in dist_map:
         raise ValueError(f"invalid distribution: {distribution}")
@@ -33,13 +34,13 @@ def start(n, algorithm, distribution, inverse=False, width=800, height=500, fps=
 
 
 if __name__ == "__main__":
-    num = 100     # number of numbers to sort
+    num = 200     # number of numbers to sort
     fps = 60      # max frames per second
     width = 800   # window width
     height = 500  # window height
     color_range = (0, 1)          # 0: dark blue, 0.4: light blue, 0.5: light green, 0.65: yellow, 0.8: orange, 1: red
-    algorithm = "quick sort"      # quick sort, insertion sort, selection sort, bubble sort, merge sort, bogo sort
-    distribution = "quadratic"    # linear, quadratic, step, logarithmic, random
+    algorithm = "merge sort"      # quick sort, insertion sort, selection sort, bubble sort, merge sort, bogo sort
+    distribution = "exponential"    # linear, quadratic, step, logarithmic, random, exponential
     inverse = False  # reverse the numbers
     lower = 0        # lowest number
     upper = height   # largest number (upper <= height)
