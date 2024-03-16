@@ -170,7 +170,7 @@ class Sorting:
     def bogo_sort(self):
         A = self._L.copy()
         self.clear_record()
-        self._record.append(A.copy())
+        self.add_record(A)
         while self._is_sorted(A) == False:
             np.random.shuffle(A)
             self.add_record(A)
