@@ -38,6 +38,14 @@ class Graphics:
         text_obj = self.counter_font.render(text, True, (0, 255, 0))
         self.window.blit(text_obj, (7, 20))
 
+    
+    def draw_text(self, text, x, y, color, size):
+        font = pygame.font.SysFont('arial', size)
+        text_obj = font.render(text, True, color)
+        text_rect = text_obj.get_rect(center=(x, y))
+        pygame.draw.rect(self.window, (0, 0, 0), text_rect)
+        self.window.blit(text_obj, text_rect)
+
 
     def draw_squares(self, A):
         n = len(A)
@@ -78,8 +86,17 @@ class Graphics:
             if not self.restart:
                 while True:
                     self.draw_frame(self.record[-1])
-                    self.pygame_events()
+                    self.draw_text(text="press [ENTER] to restart",
+                                    x=self.width/2,
+                                    y=self.height/2,
+                                    color=(255, 255, 255),
+                                    size=20)
                     pygame.display.update()
+                    self.pygame_events()
+                    keys = pygame.key.get_pressed()
+                    if keys[pygame.K_RETURN]:
+                        break
+
 
     def start(self):
         pygame.init()
