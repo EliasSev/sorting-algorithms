@@ -8,15 +8,20 @@ class Sorting:
         self._record = []
         self._comp = 0
 
+    def clear_record(self):
+        self._record = []
+        self._comp = 0
 
-    def add_record(self, arr, comp):
-        self._record.append({"arr": arr,
-                             "comp": comp})
+
+    def add_record(self, arr):
+        A = arr.copy()
+        self._record.append({"arr": A,
+                             "comp": self._comp})
         
 
     def insertion_sort(self):
         A = self._L.copy()
-        self._record = []
+        self.clear_record()
 
         for i in range(1, self._n):
             key = A[i]
@@ -26,14 +31,14 @@ class Sorting:
                 j -= 1
                 self._comp += 1
             A[j+1] = key
-            self.add_record(A.copy(), self._comp)
+            self.add_record(A)
 
         return self._record
     
 
     def quick_sort(self):
         A = self._L.copy()
-        self._record = []
+        self.clear_record()
         p, r = 0, self._n - 1
         self._quick_sort(A, p, r)
 
@@ -48,7 +53,8 @@ class Sorting:
             if A[j] <= x:
                 i += 1 
                 A[i], A[j] = A[j], A[i] 
-                self._record.append(A.copy())
+                self.add_record(A)
+            self._comp += 1
         A[i+1], A[r] = A[r], A[i+1]
 
         return i + 1
@@ -59,11 +65,11 @@ class Sorting:
             q = self._partition(A, p, r)
             self._quick_sort(A, p, q-1)
             self._quick_sort(A, q+1, r)
-
+        
 
     def bubble_sort(self):
         A = self._L.copy()
-        self._record = []
+        self.clear_record()
         corrected = False
 
         for i in range(self._n):
@@ -71,7 +77,8 @@ class Sorting:
                 if A[j] > A[j + 1]:
                     A[j], A[j + 1] = A[j + 1], A[j]
                     corrected = True
-                self._record.append(A.copy()) 
+                self.add_record(A)
+                self._comp += 1
             if not corrected:
                 break
 
@@ -80,14 +87,15 @@ class Sorting:
 
     def selection_sort(self):
         A = self._L.copy()
-        self._record = []
+        self.clear_record()
 
         for i in range(0, self._n - 1):
             iMin = i
             for j in range(i+1, self._n):
                 if A[j] < A[iMin]:
                     iMin = j
-                    self._record.append(A.copy())
+                    self.add_record(A)
+                self._comp += 1
             if iMin != i:
                 A[iMin], A[i] = A[i], A[iMin]
         
@@ -96,7 +104,7 @@ class Sorting:
 
     def merge_sort(self):
         A = self._L.copy()
-        self._record = []
+        self.clear_record()
         self._merge_sort(A, 0, self._n-1)
         return self._record
     
@@ -133,22 +141,22 @@ class Sorting:
                 A[k] = R[j]
                 j += 1
             k += 1
-            
-            self._record.append(A.copy())
+            self._comp += 1
+            self.add_record(A)
 
         while i < n1:
             A[k] = L[i]
             i += 1
             k += 1
 
-            self._record.append(A.copy())
+            self.add_record(A)
 
         while j < n2:
             A[k] = R[j]
             j += 1
             k += 1
 
-            self._record.append(A.copy())
+            self.add_record(A)
 
 
     def _is_sorted(self, A):
@@ -161,10 +169,11 @@ class Sorting:
 
     def bogo_sort(self):
         A = self._L.copy()
-        self._record = [A.copy()]
+        self.clear_record()
+        self._record.append(A.copy())
         while self._is_sorted(A) == False:
             np.random.shuffle(A)
-            self._record.append(A.copy())
+            self.add_record(A)
             if len(self._record) >= 25000:
                 break
         return self._record

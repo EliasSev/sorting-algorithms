@@ -28,9 +28,9 @@ def start(n, algorithm, distribution, inverse=False, width=800, height=500, fps=
     if algorithm not in sort_map:
         raise ValueError(f"invalid algorithm: {algorithm}")
     H = sort_map[algorithm]()
-
     graphics = Graphics(H, width, height, fps, color_range)
     graphics.start()
+    
 
 
 if __name__ == "__main__":
@@ -39,8 +39,8 @@ if __name__ == "__main__":
     width = 800   # window width
     height = 500  # window height
     color_range = (0, 1)          # 0: dark blue, 0.4: light blue, 0.5: light green, 0.65: yellow, 0.8: orange, 1: red
-    algorithm = "merge sort"      # quick sort, insertion sort, selection sort, bubble sort, merge sort, bogo sort
-    distribution = "exponential"    # linear, quadratic, step, logarithmic, random, exponential
+    algorithm = "quick sort"      # quick sort, insertion sort, selection sort, bubble sort, merge sort, bogo sort
+    distribution = "linear"    # linear, quadratic, step, logarithmic, random, exponential
     inverse = False  # reverse the numbers
     lower = 0        # lowest number
     upper = height   # largest number (upper <= height)
