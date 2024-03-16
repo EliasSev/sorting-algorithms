@@ -5,18 +5,21 @@ import matplotlib.pylab as pl
 
 class Graphics:
 
-    def __init__(self, L, width, height, fps=60, color_range=None):
+    def __init__(self, L, width, height, fps=60, color_range=None, restart=True):
         """
         L, list     : sorting record (list of dicts)
         width, int  : window width
         height, int : window height
         fps, int    : max frames per second
+        color_range, tuple : range of colors (a, b), 0 <= a <= b <= 1
+        restart, bool : restart after array is sorted
         """
 
         self.record = L
         self.width = width
         self.height = height
         self.fps = fps
+        self.restart = restart
 
         if color_range is None:
             self.color_range = (0, 1)
@@ -63,6 +66,13 @@ class Graphics:
                     if event.type == pygame.QUIT:
                         pygame.quit()
                         sys.exit()
+
+            if not self.restart:
+                while True:
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            pygame.quit()
+                            sys.exit()
 
 
     def start(self):
