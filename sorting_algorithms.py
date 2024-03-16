@@ -6,7 +6,13 @@ class Sorting:
         self._L = L
         self._n = len(L)
         self._record = []
+        self._comp = 0
 
+
+    def add_record(self, arr, comp):
+        self._record.append({"arr": arr,
+                             "comp": comp})
+        
 
     def insertion_sort(self):
         A = self._L.copy()
@@ -18,8 +24,9 @@ class Sorting:
             while j > -1 and A[j] > key:
                 A[j+1] = A[j]
                 j -= 1
+                self._comp += 1
             A[j+1] = key
-            self._record.append(A.copy())
+            self.add_record(A.copy(), self._comp)
 
         return self._record
     
