@@ -98,7 +98,8 @@ class Sorting:
                 self._comp += 1
             if iMin != i:
                 A[iMin], A[i] = A[i], A[iMin]
-        
+
+        self.add_record(A)
         return self._record
     
 

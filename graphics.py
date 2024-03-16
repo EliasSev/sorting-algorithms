@@ -38,10 +38,11 @@ class Graphics:
         text_obj = self.counter_font.render(text, True, (0, 255, 0))
         self.window.blit(text_obj, (7, 20))
 
+
     def draw_squares(self, A):
         n = len(A)
         c0, c1 = self.color_range
-        colors = [(r, g, b) for r, g, b, _ in 
+        colors = [(r, g, b) for r, g, b, _ in  # (r, g, b) color range
                   pl.cm.jet(np.linspace(c0, c1, self.height))*255]
         widths = np.linspace(0, self.width, n+1)
         avg_width = self.width / n 
@@ -52,28 +53,33 @@ class Graphics:
             pygame.draw.rect(self.window, colors[int(A[i]-1)], body)
 
 
+    def pygame_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+
+    def draw_frame(self, record):
+        self.window.fill((0, 0, 0))
+        self.draw_squares(record["arr"])
+        self.draw_fps()
+        self.draw_counter(record["comp"])
+        self.clock.tick(self.fps)
+
+
     def update(self):
         while True:
             for rec in self.record:
-                self.window.fill((0, 0, 0))
-                self.draw_squares(rec["arr"])
-                self.draw_fps()
-                self.draw_counter(rec["comp"])
-                self.clock.tick(self.fps)
+                self.draw_frame(rec)
                 pygame.display.update()
-
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        pygame.quit()
-                        sys.exit()
+                self.pygame_events()
 
             if not self.restart:
                 while True:
-                    for event in pygame.event.get():
-                        if event.type == pygame.QUIT:
-                            pygame.quit()
-                            sys.exit()
-
+                    self.draw_frame(self.record[-1])
+                    self.pygame_events()
+                    pygame.display.update()
 
     def start(self):
         pygame.init()
