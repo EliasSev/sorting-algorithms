@@ -41,6 +41,7 @@ class Sorting:
         self.clear_record()
         p, r = 0, self._n - 1
         self._quick_sort(A, p, r)
+        self.add_record(A)  # last step
 
         return self._record
 
@@ -229,7 +230,7 @@ class Distributions:
         return A
     
     
-    def logarithmic(self, x0=10):
+    def logarithmic(self, x0=5):
         A = np.linspace(1, np.exp(x0), self.n)
         A = np.log(A) * self.upper / x0
 

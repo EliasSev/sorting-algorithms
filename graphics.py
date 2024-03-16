@@ -5,7 +5,7 @@ import matplotlib.pylab as pl
 
 class Graphics:
 
-    def __init__(self, L, width, height, fps=60, color_range=None, restart=True):
+    def __init__(self, L, width, height, fps=60, color_range=None, restart=True, info=None):
         """
         L, list     : sorting record (list of dicts)
         width, int  : window width
@@ -20,6 +20,7 @@ class Graphics:
         self.height = height
         self.fps = fps
         self.restart = restart
+        self.info = info
 
         if color_range is None:
             self.color_range = (0, 1)
@@ -30,17 +31,22 @@ class Graphics:
     def draw_fps(self):
         text = "[" + str(int(self.clock.get_fps())) + "fps]"
         text_obj = self.fps_font.render(text, True, (0, 255, 0))
-        self.window.blit(text_obj, (7, -2))
+        self.window.blit(text_obj, (7, 7))
 
 
     def draw_counter(self, N):
         text = "[" + f"{N:,}" + " comparisons]"
         text_obj = self.counter_font.render(text, True, (0, 255, 0))
-        self.window.blit(text_obj, (7, 20))
+        self.window.blit(text_obj, (7, 24))
 
-    
+
+    def draw_info(self):
+        text_obj = self.counter_font.render("[" + self.info + "]", True, (0, 255, 0))
+        self.window.blit(text_obj, (7, 41))
+
+
     def draw_text(self, text, x, y, color, size):
-        font = pygame.font.SysFont('arial', size)
+        font = pygame.font.SysFont('consolas', size)
         text_obj = font.render(text, True, color)
         text_rect = text_obj.get_rect(center=(x, y))
         pygame.draw.rect(self.window, (0, 0, 0), text_rect)
@@ -72,6 +78,7 @@ class Graphics:
         self.window.fill((0, 0, 0))
         self.draw_squares(record["arr"])
         self.draw_fps()
+        self.draw_info()
         self.draw_counter(record["comp"])
         self.clock.tick(self.fps)
 
@@ -102,7 +109,7 @@ class Graphics:
         pygame.init()
         self.clock = pygame.time.Clock()
         self.window = pygame.display.set_mode((self.width, self.height))
-        self.fps_font = pygame.font.SysFont('arialblack', 13)
-        self.counter_font = pygame.font.SysFont('arial', 13)
+        self.fps_font = pygame.font.SysFont('consas', 18)
+        self.counter_font = pygame.font.SysFont('consas', 16)
         pygame.display.set_caption('Sorting Algorithms')
         self.update()
