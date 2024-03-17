@@ -193,6 +193,7 @@ class Sorting:
         if largest != i:
             (A[i], A[largest]) = (A[largest], A[i])
 
+            self._comp += 1
             self.add_record(A)
             self._heapify(A, n, largest)
  
