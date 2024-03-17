@@ -179,6 +179,42 @@ class Sorting:
             if len(self._record) >= 25000:
                 break
         return self._record
+    
+
+    def _heapify(self, A, n, i):
+        largest = i 
+        l = 2 * i + 1
+        r = 2 * i + 2 
+
+        if l < n and A[i] < A[l]:
+            largest = l
+        if r < n and A[largest] < A[r]:
+            largest = r
+        if largest != i:
+            (A[i], A[largest]) = (A[largest], A[i])
+
+            self.add_record(A)
+            self._heapify(A, n, largest)
+ 
+ 
+    def _heap_sort(self, A):
+        n = len(A)
+
+        for i in range(n // 2, -1, -1):
+            self._heapify(A, n, i)
+    
+        for i in range(n - 1, 0, -1):
+            (A[i], A[0]) = (A[0], A[i])
+            self._heapify(A, i, 0)
+
+    
+    def heap_sort(self):
+        A = self._L.copy()
+        self.clear_record()
+        self._heap_sort(A)
+        self.add_record(A)
+
+        return self._record
 
 
 class Distributions:
