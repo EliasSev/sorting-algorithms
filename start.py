@@ -24,7 +24,9 @@ def start(n, algorithm, distribution, inverse=False, width=800, height=500, fps=
                 "selection sort": sorting.selection_sort,
                 "bubble sort": sorting.bubble_sort,
                 "merge sort": sorting.merge_sort,
-                "bogo sort": sorting.bogo_sort}
+                "bogo sort": sorting.bogo_sort,
+                "heap sort": sorting.heap_sort,
+                "shell sort": sorting.shell_sort}
     
     if algorithm not in sort_map:
         raise ValueError(f"invalid algorithm: {algorithm}")
@@ -35,17 +37,17 @@ def start(n, algorithm, distribution, inverse=False, width=800, height=500, fps=
 
 
 if __name__ == "__main__":
-    num = 100     # number of numbers to sort
-    fps = 60      # max frames per second
+    num = 400     # number of numbers to sort
+    fps = 300      # max frames per second
     width = 800   # window width
     height = 500  # window height
-    color_range = (0, 1)         # 0: dark blue, 0.4: light blue, 0.5: light green, 0.65: yellow, 0.8: orange, 1: red
-    algorithm = "quick sort" # quick sort, insertion sort, selection sort, bubble sort, merge sort, bogo sort
-    distribution = "linear"      # linear, quadratic, step, logarithmic, random, exponential
+    color_range = (0, 1)            # 0: dark blue, 0.4: light blue, 0.5: light green, 0.65: yellow, 0.8: orange, 1: red
+    algorithm = "shell sort"        # quick, insertion, selection, bubble, merge, bogo, heap, shell
+    distribution = "exponential"    # linear, quadratic, step, logarithmic, random, exponential
     inverse = False  # reverse the numbers
     lower = 0        # lowest number
     upper = height   # largest number (upper <= height)
-    restart = False
+    restart = False  # pause when done sorting
     
     start(n=num,
         algorithm=algorithm,

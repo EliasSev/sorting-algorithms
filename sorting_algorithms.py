@@ -216,6 +216,30 @@ class Sorting:
         self.add_record(A)
 
         return self._record
+    
+
+    def shell_sort(self):
+        A = self._L.copy()
+        n = len(A)
+        gap = n // 2
+    
+        while gap > 0:
+    
+            for i in range(gap, self._n):
+                temp = A[i]
+                j = i
+                while j >= gap and A[j-gap] >temp:
+                    A[j] = A[j-gap]
+                    j -= gap
+
+                    self.add_record(A)
+                    self._comp += 1
+
+                A[j] = temp
+            gap //= 2 
+
+        self.add_record(A)
+        return self._record
 
 
 class Distributions:
